@@ -1,24 +1,24 @@
 import argparse
-from .config import Config
-from .gmail_client import GmailClient
-from .core_client import CoreClient
-from .prompt_generator import PromptGenerator
+from gmail_extension.config import Config
+from gmail_extension.gmail_client import GmailClient
+from gmail_extension.core_client import CoreClient
+from gmail_extension.prompt_generator import PromptGenerator
 
 class CLI:
     def __init__(self):
-        args = self.parse_arguments()
-        config_file_path = f'{args.root_path}/config.yaml'
+        self.args = self.parse_arguments()
+        config_file_path = f'{self.args.root_path}/config.yaml'
 
         self.config = Config(config_file_path)
-        self.config.load_from_yaml()
         self.gmail_client = GmailClient(self.config)
-        self.core_client = CoreClient(self.config)
+        self.core_client = CoreClient(self.config, self.args.core_url, self.args.user_id)
         self.prompt_generator = PromptGenerator(self.config)
 
     def parse_arguments(self):
         parser = argparse.ArgumentParser(description="Gmail Prompter")
         parser.add_argument("--core_url", help="Core Api URL")
         parser.add_argument("--root_path", help="Root path of extension from running path")
+        parser.add_argument("--user_id", help="Daistant user id" )
 
         return parser.parse_args()
 
