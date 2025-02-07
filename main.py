@@ -24,7 +24,9 @@ class CLI:
 
     def run(self):
         gmail_access_token = self.core_client.get_access_token()
+        print("gmail_access_token: ", gmail_access_token)
         unread_emails = self.gmail_client.get_unread_emails(gmail_access_token)
+        print(unread_emails)
         prompt = self.prompt_generator.generate_prompt(unread_emails)
 
         self.core_client.send_prompt(prompt)

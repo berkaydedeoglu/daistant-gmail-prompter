@@ -1,5 +1,5 @@
 google:
   base_url: "https://gmail.googleapis.com/gmail/v1"
   base_user: "me"
-  max_list_result: 50
+  max_list_result: 500
   daistant_read_label: 'daistant-read' 
